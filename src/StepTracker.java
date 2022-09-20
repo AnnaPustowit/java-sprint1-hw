@@ -21,10 +21,10 @@ public class StepTracker {
 
     public void enterSteps(Scanner scanner){
         System.out.println("Введите номер месяца: ");
-        int monthNumber = inputUserNumber(scanner, 0, 11);
+        int monthNumber = inputUserNumber(scanner, 1, 12) - 1;
 
         System.out.println("Введите номер дня: ");
-        int dayNumber = inputUserNumber(scanner, 0, 29);
+        int dayNumber = inputUserNumber(scanner, 1, 30) - 1;
 
         System.out.println("Введите количество шагов: ");
         int stepsCount = inputUserNumber(scanner, 0, 100000);
@@ -35,7 +35,7 @@ public class StepTracker {
 
     public void showStatistic(Scanner scanner){
         System.out.println("Введите номер месяца: ");
-        int monthNumber = inputUserNumber(scanner, 0, 11);
+        int monthNumber = inputUserNumber(scanner, 1, 12) - 1;
 
         showStatisticDaySteps(monthNumber);
 
@@ -66,42 +66,42 @@ public class StepTracker {
         return number;
     }
 
-    private void showStatisticDaySteps(int numOfMonth){
-        int lastDay = monthToData[numOfMonth].monthDays.length;
-        for(int i = 0; i < lastDay - 1; ++i){
-            System.out.print(i + 1 + " день: " + monthToData[numOfMonth].monthDays[i] + ", ");
+    private void showStatisticDaySteps(int monthNumber){
+        int lastDay = monthToData[monthNumber].monthDays.length;
+        for(int i = 0; i < lastDay - 1; i++){
+            System.out.print(i + 1 + " день: " + monthToData[monthNumber].monthDays[i] + ", ");
 
         }
 
         System.out.println(lastDay + " день: "
-                + monthToData[numOfMonth].monthDays[lastDay - 1]);
+                + monthToData[monthNumber].monthDays[lastDay - 1]);
     }
 
-    private void showStatisticMaxSteps(int numOfMonth){
+    private void showStatisticMaxSteps(int monthNumber){
         int maxSteps = 0;
-        for(int i = 0; i < monthToData[numOfMonth].monthDays.length; ++i) {
-            if (maxSteps < monthToData[numOfMonth].monthDays[i]) {
-                maxSteps = monthToData[numOfMonth].monthDays[i];
+        for(int i = 0; i < monthToData[monthNumber].monthDays.length; i++) {
+            if (maxSteps < monthToData[monthNumber].monthDays[i]) {
+                maxSteps = monthToData[monthNumber].monthDays[i];
             }
         }
         System.out.println("Максимальное количество шагов за месяц: " + maxSteps);
     }
 
-    private void showStatisticAverageSteps(int numOfMonth){
+    private void showStatisticAverageSteps(int monthNumber){
         int averageSteps = 0;
         int daysCount = 0;
-        for(int i = 0; i < monthToData[numOfMonth].monthDays.length; ++i) {
-            averageSteps += monthToData[numOfMonth].monthDays[i];
+        for(int i = 0; i < monthToData[monthNumber].monthDays.length; i++) {
+            averageSteps += monthToData[monthNumber].monthDays[i];
             ++daysCount;
         }
         System.out.println("Среднее количество шагов за месяц: " + averageSteps/daysCount);
     }
 
-    private void showStatisticBestSeries(int numOfMonth){
+    private void showStatisticBestSeries(int monthNumber){
         int daysCount = 0;
         int maxSeries = 0 ;
-        for(int i = 0; i < monthToData[numOfMonth].monthDays.length; ++i) {
-            if(monthToData[numOfMonth].monthDays[i] >= stepsGoal ){
+        for(int i = 0; i < monthToData[monthNumber].monthDays.length; i++) {
+            if(monthToData[monthNumber].monthDays[i] >= stepsGoal ){
                 ++daysCount;
             }
             else{
